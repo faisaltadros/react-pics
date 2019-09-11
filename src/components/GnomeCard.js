@@ -1,15 +1,24 @@
 import React, { Component } from "react";
 import "./GnomeCard.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from "react-bootstrap/Modal";
 
 class GnomeCard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: this.props.item
+      items: this.props.item,
+      show: false
     };
   }
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
 
   render() {
     const {
@@ -23,16 +32,12 @@ class GnomeCard extends Component {
       friends,
       professions
     } = this.state.items;
-    console.log(this.state.items);
-
-    // age, hair-color, height, weight
-    // friends, professions (Arrays)
 
     return (
       <div style={{ gridRowEnd: `span 50` }} key={id}>
         <div className="card">
           <img
-            class="card-img-top"
+            className="card-img-top"
             style={{ height: `250px`, width: `250px` }}
             alt={name}
             src={thumbnail}
@@ -41,40 +46,70 @@ class GnomeCard extends Component {
             <h5 className="card-title">
               <strong>{name}</strong>
             </h5>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
                 Age: {age} | Hair Color: {hair_color}
               </li>
-              <li class="list-group-item">
+              <li className="list-group-item">
                 Height: {Math.round(height)} | Weight: {Math.round(weight)}
               </li>
-              <li class="list-group-item">
-                Friends: {friends.length} | Professions: {professions.length}
+              <li className="list-group-item">
+                Friends:{" "}
+                <span className="badge badge-primary badge-pill">
+                  {friends.length}
+                </span>{" "}
+                | Professions: {professions.length}
               </li>
             </ul>
-            <a href="#" className="btn btn-primary">
-              Open
-            </a>
+            <Modal show={this.state.show} handleClose={this.hideModal}>
+              <div className="card">
+                <img
+                  class="card-img-top"
+                  style={{ height: `250px`, width: `250px` }}
+                  alt={name}
+                  src={thumbnail}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">
+                    <strong>{name}</strong>
+                  </h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      Age: {age} | Hair Color: {hair_color}
+                    </li>
+                    <li class="list-group-item">
+                      Height: {Math.round(height)} | Weight:{" "}
+                      {Math.round(weight)}
+                    </li>
+
+                    <li class="list-group-item list-group-item-primary">
+                      Friends: {friends.map((item, index) => item + " ")}
+                    </li>
+
+                    <li class="list-group-item list-group-item-secondary">
+                      Professions:{" "}
+                      {professions.map((item, index) => " - " + item)}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <button
+                className="btn btn-primary btn-close"
+                onClick={this.hideModal}
+              >
+                Close
+              </button>
+            </Modal>
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={this.showModal}
+            >
+              open
+            </button>
           </div>
         </div>
-        <Button variant="primary" onClick={handleShow}>
-          Launch demo modal
-        </Button>
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     );
   }

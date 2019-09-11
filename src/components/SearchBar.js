@@ -1,37 +1,42 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+// import "./SearchBar.css";
 
 class SearchBar extends Component {
-    constructor() {
-        super()
-        this.state = {
-            term: ''
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ""
+    };
 
-    // arrow function instead of binding this
-    onFormSubmit = (e) => {
-        e.preventDefault();
+    this.onFieldChange = this.onFieldChange.bind(this);
+  }
 
-        this.props.onSubmit(this.state.term)
-    }
+  onFieldChange(event) {
+    this.setState({
+      value: event.target.value
+    });
+    const fieldName = event.target.name;
+    const fieldValue = this.state.value;
+    this.props.onChange(fieldName, fieldValue);
+  }
 
-    render() {
-        return (
-            <div className="ui segment">
-                <form onSubmit={this.onFormSubmit} className="ui form">
-                    <div className="field">
-                        <label>Image Search</label>
-                        <input 
-                            type="text" 
-                            value={this.state.term} 
-                            onChange={(e) => this.setState({term: e.target.value})} 
-                        />
-                    </div>
-                </form>
-                <h1>{this.state.term}</h1>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="ui segment">
+        <div className="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+            value={this.state.value}
+            onChange={this.onFieldChange}
+            placeholder="Search for you favorite Gnomes here.."
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
-export default SearchBar
+export default SearchBar;

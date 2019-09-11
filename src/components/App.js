@@ -10,9 +10,30 @@ class App extends React.Component {
 
     this.state = {
       items: [],
+      searchItems: [],
       isLoaded: false,
-      amountDisplayed: pageSize
+      amountDisplayed: pageSize,
+      term: "",
+      showLoadButton: true
     };
+  }
+
+  onChange(field, value) {
+    const filteredItems = this.state.items.filter(function(str) {
+      return str.name.toLowerCase().includes(value.toLowerCase());
+    });
+
+    if (this.state.searchItems.length <= 12) {
+      this.setState({ showLoadButton: false });
+    } else {
+      this.setState({ showLoadButton: true });
+      console.log(this.state.searchItems.length);
+    }
+
+    this.setState({
+      term: value,
+      searchItems: filteredItems
+    });
   }
 
   componentDidMount() {
@@ -22,43 +43,27 @@ class App extends React.Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          isLoaded: true,
-          items: json.Brastlewark
+          items: json.Brastlewark,
+          searchItems: json.Brastlewark,
+          isLoaded: true
         });
       });
   }
 
   render() {
-    const { isLoaded, items } = this.state;
-    const shownItems = items.slice(0, this.state.amountDisplayed);
+    const { isLoaded, searchItems, showLoadButton } = this.state;
 
-    // if (!isLoaded) {
-    //   return <div>Loading...</div>;
-    // } else {
-    return (
-      <div className="ui container" style={{ marginTop: "10px" }}>
-        <SearchBar onSubmit={this.onSearchSubmit} />
-        <GnomeList items={this.state.items} />
-      </div>
-    );
+    if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div className="ui container" style={{ marginTop: "10px" }}>
+          <SearchBar onChange={this.onChange.bind(this)} />
+          <GnomeList items={searchItems} showLoadButton={showLoadButton} />
+        </div>
+      );
+    }
   }
 }
-
-// onSearchSubmit = async term => {
-//   const response = await unsplash.get("https://api.unsplash.com/search/photos", {
-//     params: { query: term }
-//   });
-
-//   this.setState({ images: response.data.results });
-// };
-
-// render() {
-//   return (
-//     <div className="ui container" style={{ marginTop: "10px" }}>
-//       <SearchBar onSubmit={this.onSearchSubmit} />
-//       <ImageList images={this.state.images} />
-//     </div>
-//   );
-// }
 
 export default App;

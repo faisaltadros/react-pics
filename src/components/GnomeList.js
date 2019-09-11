@@ -1,5 +1,4 @@
 import React from "react";
-import "./ImageList.css";
 import GnomeCard from "./GnomeCard";
 
 class GnomeList extends React.Component {
@@ -21,6 +20,8 @@ class GnomeList extends React.Component {
 
   render(props) {
     const shownGnomes = this.props.items.slice(0, this.state.amountDisplayed);
+    const showLoadButton = this.props.showLoadButton;
+    console.log(showLoadButton);
     const gnomes = shownGnomes.map(item => {
       return <GnomeCard key={item.id} item={item} />;
     });
@@ -30,7 +31,10 @@ class GnomeList extends React.Component {
         <div className="image-list" key="">
           {gnomes}
         </div>
-        <button onClick={this.onLoadMore}>Load More</button>
+
+        {showLoadButton ? (
+          <button onClick={this.onLoadMore}>Load More</button>
+        ) : null}
       </div>
     );
   }
