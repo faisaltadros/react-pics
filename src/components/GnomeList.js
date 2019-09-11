@@ -24,7 +24,13 @@ class GnomeList extends React.Component {
     const showLoadButton = this.props.showLoadButton;
     console.log(showLoadButton);
     const gnomes = shownGnomes.map(item => {
-      return <GnomeCard key={item.id} item={item} />;
+      return (
+        <GnomeCard
+          key={item.id}
+          item={item}
+          amountDisplayed={this.state.amountDisplayed}
+        />
+      );
     });
 
     return (

@@ -52,7 +52,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { isLoaded, searchItems, showLoadButton } = this.state;
+    const {
+      isLoaded,
+      searchItems,
+      showLoadButton,
+      amountDisplayed
+    } = this.state;
 
     if (!isLoaded) {
       return <div>Loading...</div>;
@@ -60,7 +65,11 @@ class App extends React.Component {
       return (
         <div className="ui container" style={{ marginTop: "10px" }}>
           <SearchBar onChange={this.onChange.bind(this)} />
-          <GnomeList items={searchItems} showLoadButton={showLoadButton} />
+          <GnomeList
+            items={searchItems}
+            showLoadButton={showLoadButton}
+            amountDisplayed={amountDisplayed}
+          />
         </div>
       );
     }

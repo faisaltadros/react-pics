@@ -55,10 +55,13 @@ class GnomeCard extends Component {
               </li>
               <li className="list-group-item">
                 Friends:{" "}
-                <span className="badge badge-primary badge-pill">
+                <span className="badge badge-primary badge-pill frnd-color">
                   {friends.length}
                 </span>{" "}
-                | Professions: {professions.length}
+                | Professions:{" "}
+                <span className="badge badge-primary badge-pill pro-color">
+                  {professions.length}
+                </span>{" "}
               </li>
             </ul>
             <Modal show={this.state.show} handleClose={this.hideModal}>
@@ -83,7 +86,7 @@ class GnomeCard extends Component {
                     </li>
 
                     <li class="list-group-item list-group-item-primary">
-                      Friends: {friends.map((item, index) => item + " ")}
+                      Friends: {friends.map((item, index) => " - " + item)}
                     </li>
 
                     <li class="list-group-item list-group-item-secondary">
