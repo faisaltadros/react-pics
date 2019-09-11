@@ -1,6 +1,7 @@
 import React from "react";
 import GnomeList from "./GnomeList";
 import SearchBar from "./SearchBar";
+import "./App.css";
 
 const pageSize = 12;
 

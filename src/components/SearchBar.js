@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./SearchBar.css";
+import "./SearchBar.css";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -23,7 +23,15 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="ui segment">
-        <div className="input-group mb-3">
+        <div className="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <img
+                className="gnome-logo"
+                src="https://cdn4.iconfinder.com/data/icons/gardening-planting-1/128/536_gardening-garden-gnome-512.png"
+              />
+            </span>
+          </div>
           <input
             type="text"
             className="form-control"
@@ -31,7 +39,7 @@ class SearchBar extends Component {
             aria-describedby="inputGroup-sizing-default"
             value={this.state.value}
             onChange={this.onFieldChange}
-            placeholder="Search for you favorite Gnomes here.."
+            placeholder="Search your favorite Gnomes here.."
           />
         </div>
       </div>

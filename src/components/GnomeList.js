@@ -1,4 +1,5 @@
 import React from "react";
+import "./GnomeList.css";
 import GnomeCard from "./GnomeCard";
 
 class GnomeList extends React.Component {
@@ -33,7 +34,12 @@ class GnomeList extends React.Component {
         </div>
 
         {showLoadButton ? (
-          <button onClick={this.onLoadMore}>Load More</button>
+          <button
+            className="btn btn-primary load-button"
+            onClick={this.onLoadMore}
+          >
+            <strong>Load More</strong>
+          </button>
         ) : null}
       </div>
     );
